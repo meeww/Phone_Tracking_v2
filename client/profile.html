@@ -12,11 +12,11 @@
             if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent)) {
                 // If the device is one of these, it's likely a phone
                 console.log("its a phone")
-                // window.location.href = 'phone.html';
+                window.location.href = 'phone.html';
             } else {
                 console.log("its a pc")
                 // Otherwise, assume it's a PC
-                // window.location.href = 'viewer.html';
+                window.location.href = 'viewer.html';
             }
         }
 
