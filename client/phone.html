@@ -12,26 +12,5 @@
     <div id="status">Not sending data</div>
     <div id="debug"></div>
     <script src="phone.js"></script>
-    <script>
-    
-    function toggleTracking() {
-        tracking ? stopTracking() : startTracking();
-    }
-    
-    function startTracking() {
-        if (typeof DeviceMotionEvent.requestPermission === 'function') {
-            DeviceMotionEvent.requestPermission().then(response => { 
-                if (response === 'granted') initSensors(); 
-            });
-        } else { 
-            initSensors(); 
-        }
-    }
-    
-    function stopTracking() {
-        window.removeEventListener('devicemotion', handleMotion);
-        tracking = false;
-        document.getElementById('status').innerText = 'Not sending data';
-    }</script>
 </body>
 </html>
