@@ -4,11 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phone Sensor Data - Profile</title>
+    <script>
+        // Check if the device can provide sensor data
+        function detectDevice() {
+            if (window.DeviceMotionEvent) {
+                // If the device supports motion events, it's likely a phone
+                window.location.href = 'phone.html';
+            } else {
+                // Otherwise, assume it's a PC
+                window.location.href = 'viewer.html';
+            }
+        }
+
+        window.onload = detectDevice;
+    </script>
 </head>
 <body>
-    <h1>Phone Sensor Data - Profile</h1>
-    <div id="messages"></div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="profile.js"></script>
+    <h1>Redirecting...</h1>
 </body>
 </html>
