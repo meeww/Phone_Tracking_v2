@@ -58,23 +58,23 @@ function connectWebSocket(token) {
 }
 
 function toggleTracking() {
-    var button = document.getElementById("startStopButton")
-    if(tracking){
+    tracking = !tracking;
+    const startStopButton = document.getElementById('startStopButton');
+    const status = document.getElementById('status');
+    if (tracking) {
         startTracking();
-        button.innerText = '🔴 Recording...';
-        button.style.backgroundColor = '#d9534f';
+        startStopButton.innerText = '🔴 Recording...';
+        startStopButton.style.backgroundColor = '#d9534f';
         status.innerText = 'Sending data...';
-    }
-    else{
+    } else {
         stopTracking();
-        button.innerText = 'Start Tracking';
-        button.style.backgroundColor = '#4CAF50';
+        startStopButton.innerText = 'Start Tracking';
+        startStopButton.style.backgroundColor = '#4CAF50';
         status.innerText = 'Not sending data';
     }
 }
 
 function startTracking() {
-
     if (typeof DeviceMotionEvent.requestPermission === 'function') {
         DeviceMotionEvent.requestPermission().then(response => { 
             if (response === 'granted') initSensors(); 
@@ -88,6 +88,12 @@ function stopTracking() {
     window.removeEventListener('devicemotion', handleMotion);
     tracking = false;
     document.getElementById('status').innerText = 'Not sending data';
+}
+
+function initSensors() {
+    window.addEventListener('devicemotion', handleMotion);
+    tracking = true;
+    document.getElementById('status').innerText = 'Sending data';
 }
 
 function handleMotion(event) {
