@@ -23,7 +23,7 @@ app.use(session({
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'https://phone-tracking.onrender.com/auth/google/callback'
+  callbackURL: 'https://phone-tracking-v2.onrender.com/auth/google/callback'
 }, (accessToken, refreshToken, profile, done) => {
   // Save user profile or token as needed
   return done(null, profile);
@@ -74,5 +74,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('Server started on http://localhost:3000');
+  console.log('Server started on http://https://phone-tracking.onrender.com');
 });
