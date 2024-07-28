@@ -8,8 +8,8 @@
         function detectDevice() {
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             
-            if (/android/i.test(userAgent) || /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                // If the device is Android or iOS, it's likely a phone
+            if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent)) {
+                // If the device is one of these, it's likely a phone
                 window.location.href = 'phone.html';
             } else {
                 // Otherwise, assume it's a PC
