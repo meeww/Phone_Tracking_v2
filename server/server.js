@@ -2,8 +2,6 @@ const express = require('express');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 require('dotenv').config();
@@ -14,27 +12,18 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client')));
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/sensorApp', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-// Express Session with MongoStore
+// Express Session without MongoStore
 app.use(session({
   secret: process.env.SESSION_SECRET || 'your_secret_key',
   resave: false,
   saveUninitialized: true,
-  store: MongoStore.create({
-    mongoUrl: 'mongodb://localhost:27017/sensorApp'
-  })
 }));
 
 // Configure Passport
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'http://localhost:3000/auth/google/callback'
+  callbackURL: 'https://phone-tracking.onrender.com/auth/google/callback'
 }, (accessToken, refreshToken, profile, done) => {
   // Save user profile or token as needed
   return done(null, profile);
