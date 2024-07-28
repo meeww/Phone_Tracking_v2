@@ -29,7 +29,7 @@ function sendData(data) {
 const exampleData = { rotation: { alpha: 30, beta: 45, gamma: 60 } };
 
 // Check if the user is authenticated before sending data
-fetch('https://phone-tracking-v2.onrender.com/profile', {
+fetch('https://phone-tracking-v2.onrender.com/profile-data', {
     credentials: 'include'
 }).then(response => {
     if (response.ok) {

@@ -67,6 +67,13 @@ app.get('/profile', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/profile.html'));
 });
 
+app.get('/profile-data', (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  res.json(req.user); // Send user profile data as JSON
+});
+
 // Endpoint to receive data from the phone
 app.post('/send-data', (req, res) => {
   if (!req.isAuthenticated()) {
@@ -100,5 +107,5 @@ io.on('connection', (socket) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`Server started.`);
+  console.log(`Server started on http://localhost:${PORT}`);
 });
