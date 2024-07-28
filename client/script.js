@@ -1,5 +1,5 @@
 function sendData(data) {
-    fetch('http://https://phone-tracking.onrender.com/send-data', {
+    fetch('https://phone-tracking.onrender.com/send-data', { // Corrected URL
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -12,6 +12,8 @@ function sendData(data) {
         } else {
             console.error('Failed to send data');
         }
+    }).catch(error => {
+        console.error('Error:', error);
     });
 }
 
