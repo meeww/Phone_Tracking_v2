@@ -5,53 +5,22 @@
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.4/math.js"></script>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-
-        button {
-            display: inline-block;
-            padding: 15px 30px;
-            font-size: 18px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        #startStopButton {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        #recalibrateButton {
-            background-color: #f44336;
-            color: white;
-        }
-
-        button:hover {
-            opacity: 0.8;
-        }
-
-        #status, #debug {
-            margin-top: 20px;
-            font-size: 16px;
-        }
-    </style>
 </head>
 <body>
     <button id="startStopButton" onclick="toggleTracking()">Start Tracking</button>
     <button id="recalibrateButton" onclick="calibrate()">Recalibrate</button>
     <div id="status">Not sending data</div>
     <div id="debug"></div>
+    <script src="phone.js"></script>
     <script>
-        let tracking = false;
 
-        function toggleTracking() {
+    function initSensors() {
+        window.addEventListener('devicemotion', handleMotion);
+        tracking = true;
+        document.getElementById('status').innerText = 'Sending data';
+    }
+    
+    function toggleTracking() {
             tracking = !tracking;
             const startStopButton = document.getElementById('startStopButton');
             const status = document.getElementById('status');
@@ -68,6 +37,7 @@
             }
         }
 
+    
         function startTracking() {
             if (typeof DeviceMotionEvent.requestPermission === 'function') {
                 DeviceMotionEvent.requestPermission().then(response => { 
@@ -109,6 +79,6 @@
             // Implement your calibration logic here
             console.log('Recalibrate command sent');
         }
-    </script>
+        </script>
 </body>
 </html>
