@@ -58,7 +58,7 @@ function connectWebSocket(token) {
 }
 
 function toggleTracking() {
-    var button = document.getElementsByName("startStopButton");
+    var button = document.getElementById("startStopButton")
     if(tracking){
         startTracking();
         button.innerText = '🔴 Recording...';
