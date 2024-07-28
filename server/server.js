@@ -4,20 +4,20 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cors = require('cors');
+const http = require('http');
+const { Server } = require('socket.io');
 require('dotenv').config();
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 
-const cors = require('cors');
-
-// Use the cors middleware
+// Middleware
 app.use(cors({
     origin: 'https://phone-tracking-v2.onrender.com', // Update with your client URL
     credentials: true
 }));
-
-
-// Middleware
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client')));
 
@@ -82,6 +82,23 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-app.listen(3000, () => {
-  console.log('Server started on http://https://phone-tracking-v2.onrender.com');
+// Socket.IO connection
+io.on('connection', (socket) => {
+  console.log('A user connected');
+
+  // Join the room based on user ID
+  socket.on('join', (userId) => {
+    socket.join(userId);
+    io.to(userId).emit('message', `User with ID ${userId} has connected`);
+  });
+
+  // Handle disconnection
+  socket.on('disconnect', () => {
+    console.log('A user disconnected');
+  });
+});
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log('Node server has started successfully on: https://phone-tracking-v2.onrender.com')
 });

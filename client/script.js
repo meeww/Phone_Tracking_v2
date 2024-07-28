@@ -1,3 +1,7 @@
+// Import the Socket.IO client
+const socket = io('https://phone-tracking-v2.onrender.com');
+
+// Function to send data
 function sendData(data) {
     fetch('https://phone-tracking-v2.onrender.com/send-data', {
         method: 'POST',
@@ -29,11 +33,21 @@ fetch('https://phone-tracking-v2.onrender.com/profile', {
     credentials: 'include'
 }).then(response => {
     if (response.ok) {
-        sendData(exampleData);
+        return response.json(); // Parse the response to get the user profile
     } else {
         alert('Please log in first');
         window.location.href = 'https://phone-tracking-v2.onrender.com/auth/google';
     }
+}).then(userProfile => {
+    const userId = userProfile.id; // Get the user ID from the profile
+    socket.emit('join', userId); // Join the Socket.IO room with the user ID
+    sendData(exampleData);
 }).catch(error => {
     console.error('Error checking authentication:', error);
+});
+
+// Handle incoming messages
+socket.on('message', (message) => {
+    console.log('Message from server:', message);
+    alert(message); // Display the message to the user
 });
