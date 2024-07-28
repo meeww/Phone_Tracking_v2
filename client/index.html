@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phone Sensor Data - Login</title>
     <script>
-        // Check if the device can provide sensor data
+    
         function detectDevice() {
-            if (window.DeviceMotionEvent) {
-                // If the device supports motion events, it's likely a phone
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            console.log("User Agent:", userAgent);  // Add this line for debugging
+            
+            if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent)) {
+                // If the device is one of these, it's likely a phone
                 window.location.href = 'phone.html';
             } else {
                 // Otherwise, assume it's a PC
