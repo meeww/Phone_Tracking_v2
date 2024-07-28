@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Motion Data Viewer with 3D Head</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="status">Not connected</div>
+    <div id="data">Waiting for data...</div>
+    <button id="recalibrateButton">Recalibrate</button>
+    <button id="toggleModelButton">Toggle Model (Box/Head)</button>
+    <button id="toggleRecordButton">Start Recording</button>
+    <button id="saveButton" disabled>Save Recording</button>
+    <script src="viewer.js"></script>
+</body>
+</html>

@@ -64,7 +64,7 @@ app.get('/profile', (req, res) => {
   if (!req.isAuthenticated()) {
     return res.redirect('/auth/google');
   }
-  res.sendFile(path.join(__dirname, '../client/profile.html'));
+  res.sendFile(path.join(__dirname, 'profile.html'));
 });
 
 app.get('/profile-data', (req, res) => {
@@ -86,7 +86,17 @@ app.post('/send-data', (req, res) => {
 
 // Serve the login HTML file
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Serve the phone client page
+app.get('/phone', (req, res) => {
+  res.sendFile(path.join(__dirname, 'phone.html'));
+});
+
+// Serve the viewer client page
+app.get('/viewer', (req, res) => {
+  res.sendFile(path.join(__dirname, 'viewer.html'));
 });
 
 // Socket.IO connection
@@ -99,9 +109,20 @@ io.on('connection', (socket) => {
     io.to(userId).emit('message', `User with ID ${userId} has connected`);
   });
 
-  // Handle disconnection
+  socket.on('sensorData', (data) => {
+    socket.broadcast.emit('sensorData', data);
+  });
+
+  socket.on('recalibrate', () => {
+    socket.broadcast.emit('recalibrate');
+  });
+
+  socket.on('gpsData', (data) => {
+    socket.broadcast.emit('gpsData', data);
+  });
+
   socket.on('disconnect', () => {
-    console.log('A user disconnected');
+    console.log('User disconnected');
   });
 });
 
