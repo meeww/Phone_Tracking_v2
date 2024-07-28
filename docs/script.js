@@ -1,5 +1,5 @@
 function sendData(data) {
-    fetch('http://localhost:3000/send-data', {
+    fetch('http://https://phone-tracking.onrender.com/send-data', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
