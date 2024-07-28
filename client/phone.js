@@ -58,22 +58,23 @@ function connectWebSocket(token) {
 }
 
 function toggleTracking() {
+    var button = document.getElementsByName("startStopButton");
     if(tracking){
         startTracking();
-        startStopButton.innerText = '🔴 Recording...';
-        startStopButton.style.backgroundColor = '#d9534f';
+        button.innerText = '🔴 Recording...';
+        button.style.backgroundColor = '#d9534f';
         status.innerText = 'Sending data...';
     }
     else{
         stopTracking();
-        startStopButton.innerText = 'Start Tracking';
-        startStopButton.style.backgroundColor = '#4CAF50';
+        button.innerText = 'Start Tracking';
+        button.style.backgroundColor = '#4CAF50';
         status.innerText = 'Not sending data';
     }
 }
 
 function startTracking() {
-    var button = document.getElementsByName("startStopButton");
+
     if (typeof DeviceMotionEvent.requestPermission === 'function') {
         DeviceMotionEvent.requestPermission().then(response => { 
             if (response === 'granted') initSensors(); 
