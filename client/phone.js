@@ -57,7 +57,25 @@ function connectWebSocket(token) {
     });
 }
 
+function toggleTracking() {
+    tracking ? stopTracking() : startTracking();
+}
 
+function startTracking() {
+    if (typeof DeviceMotionEvent.requestPermission === 'function') {
+        DeviceMotionEvent.requestPermission().then(response => { 
+            if (response === 'granted') initSensors(); 
+        });
+    } else { 
+        initSensors(); 
+    }
+}
+
+function stopTracking() {
+    window.removeEventListener('devicemotion', handleMotion);
+    tracking = false;
+    document.getElementById('status').innerText = 'Not sending data';
+}
 
 function handleMotion(event) {
     if (!tracking) return;
@@ -263,6 +281,10 @@ function sendSensorData(calibratedQuaternion, position) {
     }
 }
 
-
+function initSensors() {
+    window.addEventListener('devicemotion', handleMotion);
+    tracking = true;
+    document.getElementById('status').innerText = 'Sending data';
+}
 
 connectWebSocket('your_test_token');
