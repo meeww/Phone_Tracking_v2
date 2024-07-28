@@ -63,7 +63,7 @@ function toggleTracking() {
     const status = document.getElementById('status');
     if (tracking) {
         startTracking();
-        startStopButton.innerText = '🔴 Recording...';
+        startStopButton.innerText = '🔴 Tracking...';
         startStopButton.style.backgroundColor = '#d9534f';
         status.innerText = 'Sending data...';
     } else {
