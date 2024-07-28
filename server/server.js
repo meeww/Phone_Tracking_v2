@@ -8,6 +8,15 @@ require('dotenv').config();
 
 const app = express();
 
+const cors = require('cors');
+
+// Use the cors middleware
+app.use(cors({
+    origin: 'https://phone-tracking-v2.onrender.com', // Update with your client URL
+    credentials: true
+}));
+
+
 // Middleware
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client')));

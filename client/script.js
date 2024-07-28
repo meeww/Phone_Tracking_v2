@@ -12,6 +12,7 @@ function sendData(data) {
         } else if (response.status === 401) {
             console.error('Unauthorized: Please log in first');
             alert('Please log in first');
+            window.location.href = 'https://phone-tracking-v2.onrender.com/auth/google';
         } else {
             console.error('Failed to send data');
         }
