@@ -74,5 +74,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('Server started on http://https://phone-tracking.onrender.com');
+  console.log('Server started on http://https://phone-tracking-v2.onrender.com');
 });
