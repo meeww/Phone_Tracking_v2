@@ -64,7 +64,7 @@ app.get('/profile', (req, res) => {
   if (!req.isAuthenticated()) {
     return res.redirect('/auth/google');
   }
-  res.sendFile(path.join(__dirname, 'profile.html'));
+  res.sendFile(path.join(__dirname, '../client/profile.html')); // Updated path
 });
 
 app.get('/profile-data', (req, res) => {
@@ -86,17 +86,17 @@ app.post('/send-data', (req, res) => {
 
 // Serve the login HTML file
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/index.html')); // Updated path
 });
 
 // Serve the phone client page
 app.get('/phone', (req, res) => {
-  res.sendFile(path.join(__dirname, 'phone.html'));
+  res.sendFile(path.join(__dirname, '../client/phone.html')); // Updated path
 });
 
 // Serve the viewer client page
 app.get('/viewer', (req, res) => {
-  res.sendFile(path.join(__dirname, 'viewer.html'));
+  res.sendFile(path.join(__dirname, '../client/viewer.html')); // Updated path
 });
 
 // Socket.IO connection
