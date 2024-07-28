@@ -64,7 +64,7 @@ app.get('/profile', (req, res) => {
   if (!req.isAuthenticated()) {
     return res.redirect('/auth/google');
   }
-  res.send(`Hello, ${req.user.displayName}`);
+  res.sendFile(path.join(__dirname, '../client/profile.html'));
 });
 
 // Endpoint to receive data from the phone
@@ -77,7 +77,7 @@ app.post('/send-data', (req, res) => {
   res.send('Data received');
 });
 
-// Serve the client HTML file
+// Serve the login HTML file
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
@@ -100,5 +100,5 @@ io.on('connection', (socket) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log('Node server has started successfully on: https://phone-tracking-v2.onrender.com')
+  console.log(`Server started.`);
 });
