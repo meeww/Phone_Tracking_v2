@@ -13,72 +13,25 @@
     <div id="debug"></div>
     <script src="phone.js"></script>
     <script>
-
-    function initSensors() {
-        window.addEventListener('devicemotion', handleMotion);
-        tracking = true;
-        document.getElementById('status').innerText = 'Sending data';
-    }
     
     function toggleTracking() {
-            tracking = !tracking;
-            const startStopButton = document.getElementById('startStopButton');
-            const status = document.getElementById('status');
-            if (tracking) {
-                startTracking();
-                startStopButton.innerText = '🔴 Recording...';
-                startStopButton.style.backgroundColor = '#d9534f';
-                status.innerText = 'Sending data...';
-            } else {
-                stopTracking();
-                startStopButton.innerText = 'Start Tracking';
-                startStopButton.style.backgroundColor = '#4CAF50';
-                status.innerText = 'Not sending data';
-            }
-        }
-
+        tracking ? stopTracking() : startTracking();
+    }
     
-        function startTracking() {
-            if (typeof DeviceMotionEvent.requestPermission === 'function') {
-                DeviceMotionEvent.requestPermission().then(response => { 
-                    if (response === 'granted') initSensors(); 
-                });
-            } else { 
-                initSensors(); 
-            }
+    function startTracking() {
+        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+            DeviceMotionEvent.requestPermission().then(response => { 
+                if (response === 'granted') initSensors(); 
+            });
+        } else { 
+            initSensors(); 
         }
-
-        function stopTracking() {
-            window.removeEventListener('devicemotion', handleMotion);
-            tracking = false;
-            document.getElementById('status').innerText = 'Not sending data';
-        }
-
-        function initSensors() {
-            window.addEventListener('devicemotion', handleMotion);
-            tracking = true;
-            document.getElementById('status').innerText = 'Sending data';
-        }
-
-        function handleMotion(event) {
-            if (!tracking) return;
-            const sensorData = {
-                acceleration: event.acceleration,
-                rotationRate: event.rotationRate,
-                interval: event.interval
-            };
-            sendSensorData(sensorData);
-        }
-
-        function sendSensorData(data) {
-            const socket = io();
-            socket.emit('sensorData', data);
-        }
-
-        function calibrate() {
-            // Implement your calibration logic here
-            console.log('Recalibrate command sent');
-        }
-        </script>
+    }
+    
+    function stopTracking() {
+        window.removeEventListener('devicemotion', handleMotion);
+        tracking = false;
+        document.getElementById('status').innerText = 'Not sending data';
+    }</script>
 </body>
 </html>
